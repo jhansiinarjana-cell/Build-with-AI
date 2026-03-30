@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-neon-pink: #ff00ff;
+  --color-neon-blue: #00f2ff;
+  --color-neon-green: #00ff41;
+  --color-neon-purple: #bc13fe;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-digital: "Orbitron", sans-serif;
+}
+
+@layer base {
+  :root {
+    --bg-main: #050505;
+    --card-bg: rgba(0, 0, 0, 0.4);
+    --text-main: #ffffff;
+    --text-muted: #6b7280;
+    --border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .light {
+    --bg-main: #f5f5f7;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --text-main: #1a1a1a;
+    --text-muted: #666666;
+    --border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    @apply font-sans overflow-hidden transition-colors duration-500;
+  }
+
+  .neon-border {
+    box-shadow: 0 0 5px theme('colors.neon-blue'),
+                0 0 10px theme('colors.neon-blue');
+  }
+
+  .neon-text-blue {
+    text-shadow: 0 0 5px theme('colors.neon-blue'),
+                 0 0 10px theme('colors.neon-blue');
+  }
+
+  .neon-text-pink {
+    text-shadow: 0 0 5px theme('colors.neon-pink'),
+                 0 0 10px theme('colors.neon-pink');
+  }
+
+  .neon-text-green {
+    text-shadow: 0 0 5px theme('colors.neon-green'),
+                 0 0 10px theme('colors.neon-green');
+  }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 242, 255, 0.1);
+  opacity: 0.5;
+  pointer-events: none;
+  animation: scanline 8s linear infinite;
+}
+
+/* Continuous Glitch Effect */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch::before {
+  color: #00f2ff;
+  z-index: -1;
+  animation: glitch-anim-1 1.5s infinite linear alternate-reverse;
+  text-shadow: -2px 0 #ff00ff;
+}
+
+.glitch::after {
+  color: #ff00ff;
+  z-index: -2;
+  animation: glitch-anim-2 1.5s infinite linear alternate-reverse;
+  text-shadow: 2px 0 #00f2ff;
+}
+
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(20% 0 30% 0); transform: translate(-2px, -2px); }
+  10% { clip-path: inset(60% 0 10% 0); transform: translate(2px, 2px); }
+  20% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+  30% { clip-path: inset(10% 0 80% 0); transform: translate(2px, -2px); }
+  40% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, -2px); }
+  50% { clip-path: inset(30% 0 40% 0); transform: translate(2px, 2px); }
+  60% { clip-path: inset(50% 0 20% 0); transform: translate(-2px, -2px); }
+  70% { clip-path: inset(15% 0 65% 0); transform: translate(2px, 2px); }
+  80% { clip-path: inset(75% 0 15% 0); transform: translate(-2px, 2px); }
+  90% { clip-path: inset(25% 0 55% 0); transform: translate(2px, -2px); }
+  100% { clip-path: inset(35% 0 45% 0); transform: translate(-2px, -2px); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(10% 0 80% 0); transform: translate(2px, 2px); }
+  10% { clip-path: inset(30% 0 40% 0); transform: translate(-2px, -2px); }
+  20% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+  30% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+  40% { clip-path: inset(60% 0 10% 0); transform: translate(2px, 2px); }
+  50% { clip-path: inset(20% 0 30% 0); transform: translate(-2px, -2px); }
+  60% { clip-path: inset(45% 0 35% 0); transform: translate(2px, 2px); }
+  70% { clip-path: inset(5% 0 85% 0); transform: translate(-2px, -2px); }
+  80% { clip-path: inset(85% 0 5% 0); transform: translate(2px, -2px); }
+  90% { clip-path: inset(35% 0 45% 0); transform: translate(-2px, 2px); }
+  100% { clip-path: inset(15% 0 75% 0); transform: translate(-2px, -2px); }
+}
+
+/* Global Subtle Jitter */
+@keyframes jitter {
+  0% { transform: translate(0,0); }
+  1% { transform: translate(0.5px, 0.5px); }
+  2% { transform: translate(-0.5px, -0.5px); }
+  3% { transform: translate(0,0); }
+  100% { transform: translate(0,0); }
+}
+
+.jitter-container {
+  animation: jitter 5s infinite;
+}
